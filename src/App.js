@@ -1,28 +1,71 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import styled from 'styled-components';
+
+import { GlobalStyle, blue, white } from './styles';
+import { OptionsContext } from './components/OptionsContext';
+
+import FormContainer from './components/FormContainer';
+
+class OptionsProvider extends Component {
+  state = {
+      name: 'sample-name',
+      width: null,
+      height: null,
+      hardCrop: false
+  }
+
+  changeName = (inp) => {
+    this.setState({
+      name: inp.target.value
+    })
+  }
+
+render() {
+  return (
+    <OptionsContext.Provider
+      value={{
+          options: this.state,
+          changeName: this.changeName
+      }}
+    >
+        {this.props.children}
+    </OptionsContext.Provider>
+  )
+}
+}
 
 class App extends Component {
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
+      <OptionsProvider>
+        <Container>
+          <GlobalStyle />
+          <Title>WordPress Add Image Size Generator</Title>
+          <FormContainer />
+        </Container>
+     </OptionsProvider>
     );
   }
 }
 
 export default App;
+
+const Container = styled.div`
+  display: grid;
+  margin: 30px;
+  width: 100%;
+  max-width: calc(100vw - 60px);
+  grid-template-columns: 1fr 1fr;
+`
+
+const Title = styled.h1`
+  font-size: 50px;
+  display: inline;
+  box-sizing: border-box;
+  grid-column: 1 / 3;
+  padding: 10px 30px;
+  color: ${blue};
+  font-family: 'Playfair Display', serif;
+  width: 100%;
+  background: ${white};
+`
