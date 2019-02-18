@@ -3,27 +3,30 @@ import styled from 'styled-components';
 
 import { code } from '../styles';
 
-import { OptionsContext } from './OptionsContext';
+import { OptionsContext } from '../context/OptionsContext';
 
 class CodeHome extends Component {
-    render() {
+  render() {
     return (
-        <OptionsContext.Consumer>
-            {context => (
-                <CodeTextArea value={`add_image_size(${context.options.name}, 355, 535, true)`} readOnly />
-            ) }
-        </OptionsContext.Consumer>
+      <OptionsContext.Consumer>
+        {context => (
+          <CodeTextArea
+            value={`add_image_size(${context.options.name}, 355, 535, true)`}
+            readOnly
+          />
+        )}
+      </OptionsContext.Consumer>
     );
-    }
+  }
 }
 
 export default CodeHome;
 
 const CodeTextArea = styled.textarea`
-    margin: 50px 0 0 0;
-    font-family: ${code};
-    width: 100%;
-    font-size: 14px;
-    resize: none;
-    padding: 10px;
+  margin: 50px 0 0 0;
+  font-family: ${code};
+  width: 100%;
+  font-size: 14px;
+  resize: none;
+  padding: 10px;
 `;
