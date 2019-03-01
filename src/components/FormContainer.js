@@ -2,14 +2,16 @@ import React from 'react';
 import styled from 'styled-components';
 
 import Input from './Input';
-import CodeHome from './CodeHome';
+import CodeCopyPaste from './CodeCopyPaste';
+import CropRadio from './CropRadio';
 
 const FormContainer = () => (
   <Container>
     <Input name="Name" type="text" keyName="name" />
     <Input name="Max Width" type="number" keyName="width" />
     <Input name="Max Height" type="number" keyName="height" />
-    <CodeHome />
+    <CropRadio />
+    <CodeCopyPaste />
   </Container>
 );
 

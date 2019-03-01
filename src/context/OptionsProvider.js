@@ -28,12 +28,19 @@ class OptionsProvider extends Component {
     });
   };
 
+  changeCrop = inp => {
+    this.setState({
+      hardCrop: inp
+    });
+  };
+
   render() {
     return (
       <OptionsContext.Provider
         value={{
           options: this.state,
-          changeValue: this.changeValue
+          changeValue: this.changeValue,
+          changeCrop: this.changeCrop
         }}
       >
         {this.props.children}

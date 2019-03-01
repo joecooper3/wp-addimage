@@ -5,7 +5,7 @@ import { code } from '../styles';
 
 import { OptionsContext } from '../context/OptionsContext';
 
-const CodeHome = () => {
+const CodeCopyPaste = () => {
   const [codeString, setCode] = useState('add_image_size(image-size-name);');
   const options = useContext(OptionsContext);
   const { name, width, height, hardCrop } = options.options;
@@ -29,7 +29,7 @@ const CodeHome = () => {
 
   return <CodeTextArea value={codeString} readOnly />;
 };
-export default CodeHome;
+export default CodeCopyPaste;
 
 const CodeTextArea = styled.textarea`
   margin: 50px 0 0 0;

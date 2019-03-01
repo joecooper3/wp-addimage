@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-import { blue, white } from '../styles';
+import { blue, white, rubik } from '../styles';
 
 const Title = () => (
   <TitleContainer>
@@ -19,8 +19,9 @@ const TitleContainer = styled.div`
   margin: 20px auto;
   grid-column: 1 / 3;
   color: ${white};
-  font-family: 'Playfair Display', serif;
+  font-family: ${rubik};
   h1 {
+    font-weight: 400;
     background-color: ${blue};
     text-align: center;
     color: ${white};
