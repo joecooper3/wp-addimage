@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import styled from 'styled-components';
 
 import { code } from '../styles';
@@ -6,10 +6,28 @@ import { code } from '../styles';
 import { OptionsContext } from '../context/OptionsContext';
 
 const CodeHome = () => {
+  const [codeString, setCode] = useState('add_image_size(image-size-name);');
   const options = useContext(OptionsContext);
-  const { name, width, height } = options.options;
+  const { name, width, height, hardCrop } = options.options;
 
-  return <CodeTextArea value={`add_image_size(${name}, ${width}, ${height}, true)`} readOnly />;
+  useEffect(() => {
+    const wString = width ? `, ${width}` : ``;
+
+    let hString;
+    if (width && height) {
+      hString = `, ${height}`;
+    } else if (height) {
+      hString = `, 9999, ${height}`;
+    } else {
+      hString = '';
+    }
+
+    const cropString = hardCrop ? `, true` : '';
+    const fullString = `add_image_size(${name}${wString}${hString}${cropString});`;
+    setCode(fullString);
+  });
+
+  return <CodeTextArea value={codeString} readOnly />;
 };
 export default CodeHome;
 

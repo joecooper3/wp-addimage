@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import styled from 'styled-components';
 
 import { GlobalStyle } from './styles';
-import { OptionsContext } from './context/OptionsContext';
 import OptionsProvider from './context/OptionsProvider';
 
 import FormContainer from './components/FormContainer';

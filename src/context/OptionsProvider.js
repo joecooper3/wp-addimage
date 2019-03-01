@@ -3,7 +3,7 @@ import { OptionsContext } from './OptionsContext';
 
 class OptionsProvider extends Component {
   state = {
-    name: 'sample-name',
+    name: 'image-size-name',
     width: null,
     height: null,
     hardCrop: false
@@ -14,7 +14,7 @@ class OptionsProvider extends Component {
     if (!value) {
       if (key === 'width' || key === 'height') {
         this.setState({
-          [key]: 'nossir'
+          [key]: null
         });
         return;
       }

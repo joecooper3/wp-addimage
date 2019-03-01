@@ -1,8 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 
-// import { blue, white } from '../styles';
-
 import Input from './Input';
 import CodeHome from './CodeHome';
 
