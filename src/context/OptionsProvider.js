@@ -9,9 +9,22 @@ class OptionsProvider extends Component {
     hardCrop: false
   };
 
-  changeName = inp => {
+  changeValue = (key, inp) => {
+    const { value } = inp.target;
+    if (!value) {
+      if (key === 'width' || key === 'height') {
+        this.setState({
+          [key]: 'nossir'
+        });
+        return;
+      }
+      this.setState({
+        [key]: 'image-size-name'
+      });
+      return;
+    }
     this.setState({
-      name: inp.target.value
+      [key]: value
     });
   };
 
@@ -20,7 +33,7 @@ class OptionsProvider extends Component {
       <OptionsContext.Provider
         value={{
           options: this.state,
-          changeName: this.changeName
+          changeValue: this.changeValue
         }}
       >
         {this.props.children}

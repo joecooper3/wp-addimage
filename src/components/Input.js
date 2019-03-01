@@ -6,14 +6,14 @@ import { blue } from '../styles';
 
 class Input extends Component {
   render() {
-    const { name, type } = this.props;
+    const { name, type, keyName } = this.props;
     const idName = name.replace(/\s+/g, '-').toLowerCase();
     return (
       <OptionsContext.Consumer>
         {context => (
           <InputContainer>
             <label htmlFor={idName}>{name}</label>
-            <Field id={idName} type={type} onChange={context.changeName} />
+            <Field id={idName} type={type} onChange={e => context.changeValue(keyName, e)} />
           </InputContainer>
         )}
       </OptionsContext.Consumer>

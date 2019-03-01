@@ -8,8 +8,9 @@ import CodeHome from './CodeHome';
 
 const FormContainer = () => (
   <Container>
-    <Input name="Name" type="text" />
-    <Input name="Max Width" type="number" />
+    <Input name="Name" type="text" keyName="name" />
+    <Input name="Max Width" type="number" keyName="width" />
+    <Input name="Max Height" type="number" keyName="height" />
     <CodeHome />
   </Container>
 );

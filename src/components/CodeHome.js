@@ -1,25 +1,16 @@
-import React, { Component } from 'react';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
 
 import { code } from '../styles';
 
 import { OptionsContext } from '../context/OptionsContext';
 
-class CodeHome extends Component {
-  render() {
-    return (
-      <OptionsContext.Consumer>
-        {context => (
-          <CodeTextArea
-            value={`add_image_size(${context.options.name}, 355, 535, true)`}
-            readOnly
-          />
-        )}
-      </OptionsContext.Consumer>
-    );
-  }
-}
+const CodeHome = () => {
+  const options = useContext(OptionsContext);
+  const { name, width, height } = options.options;
 
+  return <CodeTextArea value={`add_image_size(${name}, ${width}, ${height}, true)`} readOnly />;
+};
 export default CodeHome;
 
 const CodeTextArea = styled.textarea`
