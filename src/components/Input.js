@@ -1,7 +1,7 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 
-import { black, blue, white, code, rubik, playfair } from '../styles';
+import { black, blue, white, arimo, code } from '../styles';
 
 import { OptionsContext } from '../context/OptionsContext';
 
@@ -32,16 +32,19 @@ const InputContainer = styled.div`
 const Label = styled.label`
   text-transform: uppercase;
   color: ${blue};
-  font-family: ${rubik};
-  font-size: 12px;
+  font-family: ${arimo};
+  font-size: 13px;
+  font-weight: 700;
   margin: 10px 0 2px 0;
+  letter-spacing: 0.5px;
 `;
 const Field = styled.input`
   width: 200px;
   color: ${blue};
   background: ${white};
   border: 1px solid ${black};
-  padding: 15px 10px;
-  font-size: 20px;
+  padding: 12px 10px;
+  font-size: 18px;
+  font-weight: 700;
   font-family: ${code};
 `;

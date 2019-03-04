@@ -1,12 +1,15 @@
 import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
-@import url('https://fonts.googleapis.com/css?family=Playfair+Display:400,700');
-@import url('https://fonts.googleapis.com/css?family=Rubik+Mono+One');
+@import url('https://fonts.googleapis.com/css?family=Arimo:400,700');
 
 body {
     margin: 0;
     padding: 0;
     background-color: #f7e5d6;
+}
+
+:focus {
+    outline: #0c3cb4 auto 3px;
 }
 `;
