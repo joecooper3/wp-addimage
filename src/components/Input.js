@@ -1,23 +1,52 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import styled from 'styled-components';
 
 import { black, blue, white, arimo, code } from '../styles';
+import { formatName } from '../helpers';
 
 import { OptionsContext } from '../context/OptionsContext';
 
 const Input = props => {
   const { name, type, keyName } = props;
-  const idName = name.replace(/\s+/g, '-').toLowerCase();
+  const idName = formatName(name).toLowerCase();
   const options = useContext(OptionsContext);
-  const { changeValue } = options;
+  const { changeName, changeNumber } = options;
+
+  const [localValue, setLocalValue] = useState('');
+
+  const changeNameLocal = inp => {
+    const value = formatName(inp.target.value);
+    setLocalValue(value);
+    changeName(value);
+  };
+
+  const changeNumberLocal = (key, inp) => {
+    const value = inp.target.value > 9999 ? 9999 : inp.target.value;
+    setLocalValue(value);
+    changeNumber(key, value);
+  };
 
   return (
     <InputContainer>
       <Label htmlFor={idName}>{name}</Label>
       {type === 'number' ? (
-        <Field id={idName} type={type} min="0" max="9999" onChange={e => changeValue(keyName, e)} />
+        <Field
+          id={idName}
+          type={type}
+          min="0"
+          max="9999"
+          onChange={e => changeNumberLocal(keyName, e)}
+          value={localValue}
+        />
       ) : (
-        <Field id={idName} type={type} min="0" max="9999" onChange={e => changeValue(keyName, e)} />
+        <Field
+          id={idName}
+          type={type}
+          min="0"
+          max="9999"
+          onChange={e => changeNameLocal(e)}
+          value={localValue}
+        />
       )}
     </InputContainer>
   );
@@ -28,6 +57,7 @@ export default Input;
 const InputContainer = styled.div`
   display: flex;
   flex-flow: column nowrap;
+  grid-column: 1 / 2;
 `;
 const Label = styled.label`
   text-transform: uppercase;

@@ -1,19 +1,47 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 
 import { OptionsContext } from '../context/OptionsContext';
 
-import { black, blue, white, arimo, code } from '../styles';
+import { black, blue, white, arimo } from '../styles';
 
 const CropRadio = () => {
   const options = useContext(OptionsContext);
+  const refYes = useRef();
+  const refNo = useRef();
   const { changeCrop } = options;
+  const { width, height } = options.options;
+
+  // need to unselect the radio buttons if a user removes the height and width
+  useEffect(() => {
+    if (!width && !height) {
+      refYes.current.checked = false;
+      refNo.current.checked = false;
+    }
+  });
+
   return (
     <RadioContainer>
       <Title>Hard crop?</Title>
-      <Input id="yes" name="hardCrop" value="yes" type="radio" onChange={() => changeCrop(true)} />
+      <Input
+        id="yes"
+        name="hardCrop"
+        ref={refYes}
+        value="yes"
+        type="radio"
+        onChange={() => changeCrop(true)}
+        disabled={!width && !height}
+      />
       <Label htmlFor="yes">Yes</Label>
-      <Input id="no" name="hardCrop" value="no" type="radio" onChange={() => changeCrop(false)} />
+      <Input
+        id="no"
+        name="hardCrop"
+        ref={refNo}
+        value="no"
+        type="radio"
+        onChange={() => changeCrop(false)}
+        disabled={!width && !height}
+      />
       <Label htmlFor="no">No</Label>
     </RadioContainer>
   );
@@ -22,10 +50,10 @@ const CropRadio = () => {
 export default CropRadio;
 
 const RadioContainer = styled.div`
-  margin-top: 10px;
   display: flex;
   flex-flow: row wrap;
   align-items: center;
+  align-self: start;
   width: 300px;
 `;
 
@@ -36,6 +64,7 @@ const Title = styled.h3`
   font-size: 13px;
   letter-spacing: 0.5px;
   flex-basis: 100%;
+  margin: 10px 0 10px 0;
 `;
 
 const Input = styled.input`
@@ -67,6 +96,15 @@ const Input = styled.input`
 
   &:focus + label:before {
     outline: ${blue} auto 2px;
+  }
+
+  &:disabled + label {
+    color: #aeaeae;
+    cursor: not-allowed;
+  }
+
+  &:disabled + label:before {
+    opacity: 0.4;
   }
 `;
 

@@ -25,8 +25,10 @@ export default App;
 
 const Container = styled.div`
   display: grid;
-  margin: 30px;
+  margin: 30px auto;
+  padding: 0 30px;
+  box-sizing: border-box;
   width: 100%;
-  max-width: calc(100vw - 60px);
-  grid-template-columns: 1fr 1fr;
+  max-width: 850px;
+  grid-template-columns: 1fr;
 `;

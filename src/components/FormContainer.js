@@ -17,7 +17,10 @@ const FormContainer = () => (
 
 export default FormContainer;
 
-const Container = styled.div`
-  grid-columns: 1 / 3;
-  height: 100px;
+const Container = styled.main`
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: repeat(3, 80px) 1fr;
+  grid-auto-flow: column dense;
+  grid-auto-rows: 75px;
 `;

@@ -9,22 +9,28 @@ class OptionsProvider extends Component {
     hardCrop: false
   };
 
-  changeValue = (key, inp) => {
-    const { value } = inp.target;
-    if (!value) {
-      if (key === 'width' || key === 'height') {
-        this.setState({
-          [key]: null
-        });
-        return;
-      }
+  changeName = inp => {
+    if (!inp) {
       this.setState({
-        [key]: 'image-size-name'
+        name: 'image-size-name'
       });
       return;
     }
     this.setState({
-      [key]: value
+      name: inp
+    });
+  };
+
+  changeNumber = (key, inp) => {
+    if (!inp) {
+      this.setState({
+        [key]: null
+      });
+      this.turnOffCropCheck(key);
+      return;
+    }
+    this.setState({
+      [key]: inp
     });
   };
 
@@ -34,12 +40,21 @@ class OptionsProvider extends Component {
     });
   };
 
+  turnOffCropCheck = key => {
+    if ((!this.state.width && key === 'height') || (!this.state.height && key === 'width')) {
+      this.setState({
+        hardCrop: false
+      });
+    }
+  };
+
   render() {
     return (
       <OptionsContext.Provider
         value={{
           options: this.state,
-          changeValue: this.changeValue,
+          changeName: this.changeName,
+          changeNumber: this.changeNumber,
           changeCrop: this.changeCrop
         }}
       >

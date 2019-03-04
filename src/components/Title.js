@@ -13,7 +13,7 @@ const Title = () => (
 
 export default Title;
 
-const TitleContainer = styled.h1`
+const TitleContainer = styled.header`
   display: flex;
   position: relative;
   height: 164px;
@@ -42,6 +42,7 @@ const Top = styled.div`
 
 const Meat = styled.div`
   font-family: ${code};
+  font-weight: 700;
   background-color: ${white};
   color: ${blue};
   font-size: 48px;
