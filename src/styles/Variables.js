@@ -4,3 +4,4 @@ export const white = '#fdfdfd';
 export const black = '#111111';
 
 export const code = '"Courier New", Courier, monospace';
+export const arimo = "'Arimo', sans-serif";
