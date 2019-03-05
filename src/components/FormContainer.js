@@ -3,14 +3,16 @@ import styled from 'styled-components';
 
 import Input from './Input';
 import CodeCopyPaste from './CodeCopyPaste';
-import CropRadio from './CropRadio';
+import CropPosRadio from './CropPosRadio';
+import HardCropRadio from './HardCropRadio';
 
 const FormContainer = () => (
   <Container>
     <Input name="Name" type="text" keyName="name" />
     <Input name="Max Width" type="number" keyName="width" />
     <Input name="Max Height" type="number" keyName="height" />
-    <CropRadio />
+    <HardCropRadio />
+    <CropPosRadio />
     <CodeCopyPaste />
   </Container>
 );

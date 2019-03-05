@@ -8,7 +8,7 @@ import { OptionsContext } from '../context/OptionsContext';
 const CodeCopyPaste = () => {
   const [codeString, setCodeString] = useState('add_image_size(image-size-name);');
   const options = useContext(OptionsContext);
-  const { name, width, height, hardCrop } = options.options;
+  const { name, width, height, hardCrop, xPos, yPos } = options.options;
 
   useEffect(() => {
     const wString = width ? `, ${width}` : ``;
@@ -22,7 +22,15 @@ const CodeCopyPaste = () => {
       hString = '';
     }
 
-    const cropString = hardCrop ? `, true` : '';
+    let cropString;
+    if (!hardCrop) {
+      cropString = '';
+    } else if (xPos === 'center' && yPos === 'center') {
+      cropString = `, true`;
+    } else {
+      cropString = `, array( '${xPos}', '${yPos}' )`;
+    }
+
     const fullString = `add_image_size(${name}${wString}${hString}${cropString});`;
     setCodeString(fullString);
   });
