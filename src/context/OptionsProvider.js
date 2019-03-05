@@ -6,7 +6,9 @@ class OptionsProvider extends Component {
     name: 'image-size-name',
     width: null,
     height: null,
-    hardCrop: false
+    hardCrop: false,
+    xPos: 'center',
+    yPos: 'center'
   };
 
   changeName = inp => {
@@ -34,9 +36,21 @@ class OptionsProvider extends Component {
     });
   };
 
-  changeCrop = inp => {
+  changeHardCrop = inp => {
     this.setState({
       hardCrop: inp
+    });
+  };
+
+  changeCropPos = (key, inp) => {
+    if (!inp) {
+      this.setState({
+        [key]: 'center'
+      });
+      return;
+    }
+    this.setState({
+      [key]: inp
     });
   };
 
@@ -55,7 +69,8 @@ class OptionsProvider extends Component {
           options: this.state,
           changeName: this.changeName,
           changeNumber: this.changeNumber,
-          changeCrop: this.changeCrop
+          changeHardCrop: this.changeHardCrop,
+          changeCropPos: this.changeCropPos
         }}
       >
         {this.props.children}
