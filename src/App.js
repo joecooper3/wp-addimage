@@ -5,6 +5,7 @@ import { GlobalStyle } from './styles';
 import OptionsProvider from './context/OptionsProvider';
 
 import FormContainer from './components/FormContainer';
+import ImageExamples from './components/image-grid/ImageExamples';
 import Title from './components/Title';
 
 class App extends Component {
@@ -15,6 +16,7 @@ class App extends Component {
           <GlobalStyle />
           <Title />
           <FormContainer />
+          <ImageExamples />
         </Container>
       </OptionsProvider>
     );

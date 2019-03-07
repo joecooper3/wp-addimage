@@ -7,6 +7,7 @@ body {
     margin: 0;
     padding: 0;
     background-color: #f7e5d6;
+    font-family: 'Arimo', sans-serif;
 }
 
 :focus {
