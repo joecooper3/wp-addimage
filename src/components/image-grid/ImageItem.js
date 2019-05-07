@@ -8,10 +8,12 @@ import { blue, white, code, labelText } from '../../styles';
 const ImageItem = props => {
   const { demoName, demoWidth, demoHeight, image } = props;
   const options = useContext(OptionsContext);
-  const { width, height, hardCrop, xPos, yPos } = options.options;
+  const { name, width, height, hardCrop, xPos, yPos } = options.options;
 
   const [displayWidth, setDisplayWidth] = useState(0);
   const [displayHeight, setDisplayHeight] = useState(0);
+  const [cssWidth, setCssWidth] = useState(0);
+  const [cssHeight, setCssHeight] = useState(0);
 
   const scaleToWidth = () => {
     const ratio = width / demoWidth;
@@ -54,7 +56,10 @@ const ImageItem = props => {
 
   const softCropDetermine = () => {
     if (width && height) {
-      if (demoWidth - width > demoHeight - height) {
+      if (demoWidth - width > 0 && demoHeight - height > 0) {
+        setDisplayWidth(width);
+        setDisplayHeight(height);
+      } else if (demoWidth - width > demoHeight - height) {
         scaleToWidth();
       } else {
         scaleToHeight();
@@ -66,12 +71,21 @@ const ImageItem = props => {
     }
   };
 
+  const determineCssDimensions = () => {
+    if (displayWidth > displayHeight) {
+      setCssHeight('100%');
+      const newHeight = displayHeight / displayWidth;
+      console.log(newHeight);
+    }
+  };
+
   useEffect(() => {
     if (hardCrop) {
       hardCropDetermine();
     } else {
       softCropDetermine();
     }
+    // determineCssDimensions();
   });
 
   return (
@@ -79,7 +93,19 @@ const ImageItem = props => {
       <Title>
         {demoName} (original image {demoWidth}x{demoHeight})
       </Title>
-      <ImageContainer style={{ backgroundImage: `url(${image})` }}>
+      <Title>
+        {name} (new size: {displayWidth}x{displayHeight})
+      </Title>
+      <UntouchedImage>
+        <img src={`${image}`} alt="The image before upload to WordPress" />
+      </UntouchedImage>
+      <ImageContainer
+        style={{
+          backgroundImage: `url(${image})`,
+          width: `${displayWidth}px`,
+          height: `${displayHeight}px`
+        }}
+      >
         <Specs>
           {displayWidth}x{displayHeight}
         </Specs>
@@ -91,8 +117,11 @@ const ImageItem = props => {
 export default ImageItem;
 
 const Container = styled.div`
-  display: flex;
-  flex-flow: column nowrap;
+  display: grid;
+  grid-template-rows: 50px 350px;
+  grid-template-columns: 50% 50%;
+  grid-column-gap: 25px;
+  justify-items: stretch;
   position: relative;
   color: ${blue};
   width: 100%;
@@ -102,17 +131,29 @@ const Container = styled.div`
 
 const Title = styled.h3`
   ${labelText()}
-  flex: 0 1 auto;
+  text-align: center;
+`;
+
+const UntouchedImage = styled.div`
+  overflow: hidden;
+  height: 100%;
+  text-align: right;
+  max-height: 350px;
+
+  img {
+    max-height: 100%;
+    max-width: 100%;
+  }
 `;
 
 const ImageContainer = styled.div`
-  flex: 1 1 auto;
+  flex: 0 1 auto;
   display: flex;
   align-items: flex-start;
-  justify-content: flex-end;
   background-size: cover;
   border: 1px solid ${blue};
   height: 100%;
+  max-height: 350px;
 `;
 
 const Specs = styled.div`

@@ -70,6 +70,7 @@
         "react/no-unescaped-entities": 0,
         "react/no-did-update-set-state": 0,
         "jsx-a11y/accessible-emoji": 0,
+        "jsx-a11y/img-redundant-alt": 0,
         "react/jsx-filename-extension": [
             1,
             {
@@ -107,7 +108,7 @@
             {
                 "trailingComma": "none",
                 "singleQuote": true,
-                "printWidth": 100
+                "printWidth": 80
             }
         ],
         "jsx-a11y/href-no-hash": "off",

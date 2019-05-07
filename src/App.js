@@ -31,6 +31,7 @@ const Container = styled.div`
   padding: 0 30px;
   box-sizing: border-box;
   width: 100%;
-  max-width: 850px;
+  max-width: 1350px;
+  justify-items: center;
   grid-template-columns: 1fr;
 `;

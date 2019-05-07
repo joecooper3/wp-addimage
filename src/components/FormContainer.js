@@ -1,6 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
+import { mainWidth } from '../styles';
+
 import Input from './Input';
 import CodeCopyPaste from './CodeCopyPaste';
 import CropPosRadio from './CropPosRadio';
@@ -21,6 +23,7 @@ export default FormContainer;
 
 const Container = styled.main`
   display: grid;
+  max-width: ${mainWidth};
   grid-template-columns: 1fr 1fr;
   grid-template-rows: repeat(3, 80px) 1fr;
   grid-auto-flow: column dense;
