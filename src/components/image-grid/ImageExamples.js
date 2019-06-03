@@ -4,9 +4,11 @@ import styled from 'styled-components';
 import { OptionsContext } from '../../context/OptionsContext';
 import { black, blue, white, arimo, code, mainWidth } from '../../styles';
 
+import badge from '../../images/badge.jpg';
 import dog from '../../images/dog.jpeg';
 import lamps from '../../images/lamps.jpeg';
-import tokyo from '../../images/tokyo-signs.jpeg';
+import tokyo from '../../images/tokyo-signs.jpg';
+import transa from '../../images/transa.jpg';
 
 import ImageItem from './ImageItem';
 
@@ -21,17 +23,17 @@ const ImageExamples = () => {
           <CodeName>{name}</CodeName> in Action
         </Title>
         <ImageGrid>
-          <ImageItem
+          {/* <ImageItem
             demoName="Small"
             demoWidth={200}
             demoHeight={200}
-            image={dog}
+            image={badge}
           />
           <ImageItem
             demoName="Medium"
-            demoWidth={800}
-            demoHeight={800}
-            image={tokyo}
+            demoWidth={600}
+            demoHeight={600}
+            image={transa}
           />
           <ImageItem
             demoName="Large"
@@ -41,14 +43,14 @@ const ImageExamples = () => {
           />
           <ImageItem
             demoName="Tall"
-            demoWidth={400}
-            demoHeight={1600}
+            demoWidth={675}
+            demoHeight={1200}
             image={tokyo}
-          />
+          /> */}
           <ImageItem
             demoName="Wide"
-            demoWidth={1600}
-            demoHeight={400}
+            demoWidth={1200}
+            demoHeight={800}
             image={dog}
           />
         </ImageGrid>
@@ -89,7 +91,6 @@ const CodeName = styled.span`
 const ImageGrid = styled.div`
   display: grid;
   grid-template-columns: 1fr;
-  grid-template-rows: repeat(5, 400px);
   grid-column-gap: 25px;
   grid-row-gap: 25px;
 `;
