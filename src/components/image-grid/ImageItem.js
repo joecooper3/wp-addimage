@@ -1,4 +1,10 @@
-import React, { useContext, useEffect, useRef, useState } from 'react';
+import React, {
+  useCallback,
+  useContext,
+  useLayoutEffect,
+  useRef,
+  useState
+} from 'react';
 import styled from 'styled-components';
 
 import { OptionsContext } from '../../context/OptionsContext';
@@ -13,10 +19,8 @@ const ImageItem = props => {
 
   const [displayWidth, setDisplayWidth] = useState(0);
   const [displayHeight, setDisplayHeight] = useState(0);
-  const [cssWidth, setCssWidth] = useState(0);
-  const [cssHeight, setCssHeight] = useState(0);
 
-  const scaleToWidth = () => {
+  const scaleToWidth = useCallback(() => {
     const ratio = width / demoWidth;
     if (ratio < 1) {
       setDisplayWidth(Math.round(width));
@@ -25,9 +29,9 @@ const ImageItem = props => {
       setDisplayHeight(demoHeight);
       setDisplayWidth(demoWidth);
     }
-  };
+  }, [width, demoWidth, demoHeight]);
 
-  const scaleToHeight = () => {
+  const scaleToHeight = useCallback(() => {
     const ratio = height / demoHeight;
     if (ratio < 1) {
       setDisplayHeight(Math.round(height));
@@ -36,27 +40,25 @@ const ImageItem = props => {
       setDisplayHeight(demoHeight);
       setDisplayWidth(demoWidth);
     }
-  };
+  }, [height, demoHeight, demoWidth]);
 
-  const hardCropDetermine = () => {
-    if (width && height) {
-      setDisplayWidth(demoWidth > width ? width : demoWidth);
-      setDisplayHeight(demoHeight > height ? height : demoHeight);
-    } else if (width) {
-      if (demoWidth > width) {
-        const ratio = width / demoWidth;
-        setDisplayWidth(width);
-        setDisplayHeight(demoHeight * ratio);
+  useLayoutEffect(() => {
+    if (hardCrop) {
+      if (width && height) {
+        setDisplayWidth(demoWidth > width ? width : demoWidth);
+        setDisplayHeight(demoHeight > height ? height : demoHeight);
+      } else if (width) {
+        if (demoWidth > width) {
+          const ratio = width / demoWidth;
+          setDisplayWidth(width);
+          setDisplayHeight(demoHeight * ratio);
+        }
+      } else if (height) {
+        const ratio = height / demoHeight;
+        setDisplayHeight(height);
+        setDisplayWidth(demoWidth * ratio);
       }
-    } else if (height) {
-      const ratio = height / demoHeight;
-      setDisplayHeight(height);
-      setDisplayWidth(demoWidth * ratio);
-    }
-  };
-
-  const softCropDetermine = () => {
-    if (width && height) {
+    } else if (width && height) {
       if (width - demoWidth > 0 && height - demoHeight > 0) {
         setDisplayWidth(demoWidth);
         setDisplayHeight(demoHeight);
@@ -70,69 +72,20 @@ const ImageItem = props => {
     } else {
       scaleToHeight();
     }
-  };
-
-  const determineCssDimensions = () => {
-    const containerWidth = imgContainer.current.clientWidth;
-    const containerHeight = imgContainer.current.clientHeight;
-    const shrinkWidth = displayWidth > containerWidth;
-    const shrinkHeight = displayHeight > containerHeight;
-    if (shrinkWidth && shrinkHeight) {
-      console.log('both');
-      if (displayHeight - containerHeight > displayWidth - containerWidth) {
-        const ratio = containerHeight / displayHeight;
-        setCssHeight(`${containerHeight}px`);
-        const newWidth = displayWidth * ratio;
-        setCssWidth(`${newWidth}px`);
-      } else {
-        const ratio = containerWidth / displayWidth;
-        setCssWidth(`${containerWidth}px`);
-        const newHeight = displayHeight * ratio;
-        setCssHeight(`${newHeight}px`);
-      }
-    } else if (shrinkWidth) {
-      console.log('shrink width');
-      const ratio = containerWidth / displayWidth;
-      setCssWidth(`${containerWidth}px`);
-      const newHeight = displayHeight * ratio;
-      setCssHeight(`${newHeight}px`);
-    } else if (shrinkHeight) {
-      console.log('shrink height');
-      const ratio = containerHeight / displayHeight;
-      setCssHeight(`${containerHeight}px`);
-      const newWidth = displayWidth * ratio;
-      setCssWidth(`${newWidth}px`);
-    } else {
-      console.log('final else');
-      setCssHeight(`${displayHeight}px`);
-      setCssWidth(`${displayWidth}px`);
-    }
-  };
-
-  useEffect(() => {
-    if (hardCrop) {
-      hardCropDetermine();
-    } else {
-      softCropDetermine();
-    }
-    determineCssDimensions();
   }, [
-    width,
-    height,
-    displayWidth,
+    demoHeight,
+    demoWidth,
     displayHeight,
-    cssHeight,
-    cssWidth,
+    displayWidth,
     hardCrop,
-    determineCssDimensions,
-    hardCropDetermine,
-    softCropDetermine
+    height,
+    scaleToHeight,
+    scaleToWidth,
+    width
   ]);
 
   return (
     <Container>
-      {cssHeight}
-      {cssWidth}
       <Title>
         {demoName} (original image {demoWidth}x{demoHeight})
       </Title>
@@ -146,8 +99,7 @@ const ImageItem = props => {
         ref={imgContainer}
         style={{
           backgroundImage: `url(${image})`,
-          width: `${cssWidth}`,
-          height: `${cssHeight}`,
+          width: `100%`,
           maxWidth: '600px' // temporary
         }}
       >
