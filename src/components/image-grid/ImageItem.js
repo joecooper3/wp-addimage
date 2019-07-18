@@ -2,10 +2,11 @@ import React, {
   useCallback,
   useContext,
   useLayoutEffect,
-  useRef,
   useState
 } from 'react';
 import styled from 'styled-components';
+
+import CroppedImage from './CroppedImage';
 
 import { OptionsContext } from '../../context/OptionsContext';
 
@@ -14,8 +15,7 @@ import { blue, white, code, labelText } from '../../styles';
 const ImageItem = props => {
   const { demoName, demoWidth, demoHeight, image } = props;
   const options = useContext(OptionsContext);
-  const { name, width, height, hardCrop, xPos, yPos } = options.options;
-  const imgContainer = useRef(null);
+  const { name, width, height, hardCrop } = options.options;
 
   const [displayWidth, setDisplayWidth] = useState(0);
   const [displayHeight, setDisplayHeight] = useState(0);
@@ -96,13 +96,17 @@ const ImageItem = props => {
         <img src={`${image}`} alt="The image before upload to WordPress" />
       </UntouchedImage>
       <ImageContainer
-        ref={imgContainer}
         style={{
-          backgroundImage: `url(${image})`,
           width: `100%`,
           maxWidth: '600px' // temporary
         }}
       >
+        <CroppedImage
+          hardCrop={hardCrop}
+          imageUrl={image}
+          width={displayWidth}
+          height={displayHeight}
+        />
         <Specs>
           {displayWidth}x{displayHeight}
         </Specs>
